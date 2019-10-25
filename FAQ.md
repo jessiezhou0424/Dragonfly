@@ -321,3 +321,11 @@ If supernodes are set in multiple-supernode mode, dfget will connect to one of t
 Because dfget will randomize the order of all supernodes it knows and store them in a slice.
 If dfget connects to the first supernode unsuccessfully, it will connect to the second supernode in the slice.
 And so on until all the known supernodes fail to access twice, the dfget will exit with download failure.
+
+## How to limit upload and download speed of dragonfly?
+To avoid dragonfly effect the online service, the net speed need to be limited. In dfdaemon.yml, we can edit:
+dfget_flags: ["--localLimit","20M","--totalLimit","30M"]
+which means, limit a single task to 20 MByte download speed and the total net speed 30M. 
+
+## Must image download through supernode?
+Yes. If an image is not avalible on supernode, supernode will pull it from registry and dynamic seeding, distribute it to clients. A direct image pulling by dfget from registry is not provided.
